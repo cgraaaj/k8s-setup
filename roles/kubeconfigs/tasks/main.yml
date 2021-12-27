@@ -1,0 +1,13 @@
+---
+# tasks file for kubeconfigs
+
+- name: Distribute kubeadm config to be usedwith kubeadm init --config=
+  template:
+    src: cluster.kubeconfig.j2
+    dest: /home/k8sadmin/cluster.kubeconfig
+    owner: k8sadmin
+    group: k8sadmin
+  when: "'masters' in group_names"
+  tags:
+    - kubeconfig
+
