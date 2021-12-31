@@ -321,7 +321,7 @@
 
 - name: add token and hash to dummy host to pass facts between hosts
   add_host:
-    name: "192.168.50.240"
+    name: "192.168.1.77"
     token: "{{ token }}"
     hash: "{{ hash }}"
   tags:
@@ -347,9 +347,9 @@
 
 - name: Join worker nodes to cluster
   shell: |
-    kubeadm join 192.168.50.117:6443 \
-    --token "{{ hostvars['192.168.50.240']['token'] }}" \
-    --discovery-token-ca-cert-hash "{{ hostvars['192.168.50.240']['hash'] }}"
+    kubeadm join 192.168.1.77:6443 \
+    --token "{{ hostvars['192.168.1.77']['token'] }}" \
+    --discovery-token-ca-cert-hash "{{ hostvars['192.168.1.77']['hash'] }}"
   when: "'workers' in group_names"
   tags:
     - kubeadm_init

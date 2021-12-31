@@ -56,15 +56,17 @@
 - name: Add the mount point to /etc/fstab on clients
   lineinfile:
     path: /etc/fstab
-    line: "192.168.50.113:/mnt/k8sdata     /mnt    nfs     defaults        0       1"
+    line: "192.168.1.67:/media/480_ssd/data/k8sdata     /mnt/k8sdata    nfs     defaults        0       1"
+    # line: "192.168.1.67:/mnt/k8sdata    /mnt/k8sdata    nfs     defaults        0       1"
     backup: yes
   when: "'management' not in group_names"
   tags:
     - nfs
-
+# because of error using default nfs4 use nfs3 https://www.thegeekdiary.com/mount-nfs-access-denied-by-server-while-mounting-how-to-resolve/
 #Mount -a
 - name: Perform a mount -a
-  shell: mount -a
+  # shell: mount -a
+  shell: mount -t nfs -o nfsvers=3 192.168.1.67:{{export01}}
   when: "'management' not in group_names"
   tags:
     - nfs

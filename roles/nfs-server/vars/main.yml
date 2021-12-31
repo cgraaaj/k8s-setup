@@ -1,5 +1,6 @@
 ---
 # vars file for nfs-server
-export01: /mnt/k8sdata
+# export01: /mnt/k8sdata
+export01: /media/480_ssd/data/k8sdata
 #export02:
 #export03:

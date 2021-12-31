@@ -31,7 +31,7 @@
     --cluster=kubernetes \
     --user=system:node:{{ worker01_hostname }} \
     --kubeconfig={{ worker01_hostname }}.kubeconfig
-  when: ansible_hostname == "k8sworker01"
+  when: ansible_hostname == "mirana"
   tags:
     - kubeconfig
     - worker

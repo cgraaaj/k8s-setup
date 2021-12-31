@@ -149,7 +149,8 @@
       - clientAuth
     organization_name: 'system:masters'
     organizational_unit_name: 'kubernetes'
-    subject_alt_name: "DNS:kubernetes.default,IP:{{ groups['masters'][0] }},DNS:{{ k8smaster01_hostname }},IP:{{ groups['load_balancers'][0] }},DNS:{{ load_balancer_hostname }},IP:127.0.0.1,DNS:localhost,IP:{{ APISERVER_SERVICE_IP }}"
+    # subject_alt_name: "DNS:kubernetes.default,IP:{{ groups['masters'][0] }},DNS:{{ k8smaster01_hostname }},IP:{{ groups['load_balancers'][0] }},DNS:{{ load_balancer_hostname }},IP:127.0.0.1,DNS:localhost,IP:{{ APISERVER_SERVICE_IP }}"
+    subject_alt_name: "DNS:kubernetes.default,IP:{{ groups['masters'][0] }},DNS:{{ k8smaster01_hostname }},IP:127.0.0.1,DNS:localhost,IP:{{ APISERVER_SERVICE_IP }}"
   tags:
     - certficates
     - master_cert
@@ -180,8 +181,8 @@
     path: '{{ CA_DIR }}/{{ item }}-key.pem'
   loop: 
     - "{{ k8sworker01_hostname }}"
-    - "{{ k8sworker02_hostname }}"
-    - "{{ k8sworker03_hostname }}"
+    # - "{{ k8sworker02_hostname }}"
+    # - "{{ k8sworker03_hostname }}"
   tags:
     - certficates
     - worker_cert
@@ -208,8 +209,8 @@
     subject_alt_name: 'DNS:{{ item[0] }},IP:{{ item[1] }}'
   loop:
     - ["{{ k8sworker01_hostname }}", "{{  k8sworker01_ip }}" ]
-    - ["{{ k8sworker02_hostname }}", "{{  k8sworker02_ip }}" ]
-    - ["{{ k8sworker03_hostname }}", "{{  k8sworker03_ip }}" ]
+    # - ["{{ k8sworker02_hostname }}", "{{  k8sworker02_ip }}" ]
+    # - ["{{ k8sworker03_hostname }}", "{{  k8sworker03_ip }}" ]
   tags:
     - certficates
     - worker_cert
@@ -227,8 +228,8 @@
     provider: ownca
   loop:
     - "{{ k8sworker01_hostname }}"
-    - "{{ k8sworker02_hostname }}"
-    - "{{ k8sworker03_hostname }}"
+    # - "{{ k8sworker02_hostname }}"
+    # - "{{ k8sworker03_hostname }}"
   tags:
     - certficates
     - worker_cert
@@ -561,39 +562,39 @@
     - certificates
     - distribute
   #when: inventory_hostname == groups['workers'][0]
-  when: ansible_hostname == 'k8sworker01'
+  when: ansible_hostname == 'mirana'
 
-- name: Distribute worker02 certs
-  copy:
-    src: "{{ item.src }}"
-    dest: "/home/k8sadmin"
-  with_items:
-    - { src: ca.pem }
-    - { src: k8sworker02-key.pem }
-    - { src: k8sworker02.pem }
-    - { src: kube-proxy.pem }
-    - { src: kube-proxy-key.pem}
-  tags:
-    - certificates
-    - distribute
-  #when: inventory_hostname == groups['workers'][1]
-  when: ansible_hostname == 'k8sworker02'
+# - name: Distribute worker02 certs
+#   copy:
+#     src: "{{ item.src }}"
+#     dest: "/home/k8sadmin"
+#   with_items:
+#     - { src: ca.pem }
+#     - { src: k8sworker02-key.pem }
+#     - { src: k8sworker02.pem }
+#     - { src: kube-proxy.pem }
+#     - { src: kube-proxy-key.pem}
+#   tags:
+#     - certificates
+#     - distribute
+#   #when: inventory_hostname == groups['workers'][1]
+#   when: ansible_hostname == 'k8sworker02'
 
-- name: Distribute worker03 certs
-  copy:
-    src: "{{ item.src }}"
-    dest: "/home/k8sadmin"
-  with_items:
-    - { src: ca.pem }
-    - { src: k8sworker03-key.pem }
-    - { src: k8sworker03.pem }
-    - { src: kube-proxy.pem }
-    - { src: kube-proxy-key.pem}
-  tags:
-    - certificates
-    - distribute
-  #when: inventory_hostname == groups['workers'][2]
-  when: ansible_hostname == 'k8sworker03'
+# - name: Distribute worker03 certs
+#   copy:
+#     src: "{{ item.src }}"
+#     dest: "/home/k8sadmin"
+#   with_items:
+#     - { src: ca.pem }
+#     - { src: k8sworker03-key.pem }
+#     - { src: k8sworker03.pem }
+#     - { src: kube-proxy.pem }
+#     - { src: kube-proxy-key.pem}
+#   tags:
+#     - certificates
+#     - distribute
+#   #when: inventory_hostname == groups['workers'][2]
+#   when: ansible_hostname == 'k8sworker03'
 
 - name: Distribute master01 certs
   copy:

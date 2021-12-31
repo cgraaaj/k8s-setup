@@ -77,3 +77,6 @@ Link to the youtube series:
 - `kubectl describe node < node >` will show more information about the node and possible reveal any issues
 - `kubectl get pods -n kube-system -o wide` A widely used command to display all pods in the kube-system namespace and their status
 
+
+
+Continue here for more https://github.com/justmeandopensource/kubernetes

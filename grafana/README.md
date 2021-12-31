@@ -34,7 +34,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: 192.168.50.113
+    server: 192.168.1.67
     path: "/grafana"
 ```
 

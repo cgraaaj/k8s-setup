@@ -2,17 +2,17 @@
 # vars file for kubeconfigs
 
 # This should be the address of the load balancer that is reachable by clients
-load_balancer_address: https://192.168.50.117
+# load_balancer_address: https://192.168.50.117
 
 # IP addresses of worker nodes
-worker01: 192.168.50.177
-worker02: 192.168.50.202
-worker03: 192.168.50.30
+worker01: 192.168.1.87
+# worker02: 192.168.50.202
+# worker03: 192.168.50.30
 
 # Worker Hostnames for .kubeconfig templates
-worker01_hostname: k8sworker01
-worker02_hostname: k8sworker02
-worker03_hostname: k8sworker03
+worker01_hostname: mirana
+# worker02_hostname: k8sworker02
+# worker03_hostname: k8sworker03
 
 # If you decide to encrypt the certs inside your .kubeconfig, this is an example of what
 # each varaible would look like. 
