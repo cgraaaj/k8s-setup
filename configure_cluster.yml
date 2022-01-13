@@ -8,12 +8,14 @@
   hosts: all
   become: true
   roles:
-    - { role: reboot }
-    - { role: configure_hosts }
-    - { role: kubeadm_install }
+    # - { role: reboot }
+    # - { role: configure_hosts }
+    # - { role: kubeadm_install }
     # - { role: nginx_load_balancer , when: inventory_hostname == "192.168.50.117" }
-    - { role: certificates }
-    - { role: kubeconfigs }
-    - { role: secrets }
-    - { role: bootstrap_cluster }
-    - { role: nfs-server }
+    # - { role: certificates }
+    # - { role: kubeconfigs }
+    # - { role: secrets }
+    # - { role: bootstrap_cluster }
+    # - { role: nfs-server }
+    - { role: uninstall }
+    - { role: reboot }
